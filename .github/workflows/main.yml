@@ -17,6 +17,8 @@ jobs:
         sudo git clone --depth 1 --branch android-6.0.1_r11 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
     - name: Building Kernel
       run: |
+        git clone https://github.com/unlegacy-devices/android_kernel_samsung_j3x3g-2/ -b cm-14.1
+        cd android_kernel_samsung_j3x3g-2
         export KBUILD_BUILD_USER=notnoelchannel
         export KBUILD_BUILD_HOST=unlegacy-devices
         bash build_kernel.sh
