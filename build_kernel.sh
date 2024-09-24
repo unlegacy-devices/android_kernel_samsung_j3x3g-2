@@ -7,11 +7,11 @@
 
 set -e -o pipefail
 
-export CROSS_COMPILE=../PLATFORM/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
+export CROSS_COMPILE=/opt/toolchains/arm-eabi-4.8/bin/arm-eabi-
 export ARCH=arm
 
 PLATFORM=sc8830
-DEFCONFIG=gtexswifi-dt_defconfig
+DEFCONFIG=j3x3g-dt_defconfig
 
 KERNEL_PATH=$(pwd)
 MODULE_PATH=${KERNEL_PATH}/modules
@@ -25,7 +25,6 @@ function build_kernel() {
 	make modules
 	make dtbs
 	./scripts/mkdtimg.sh -i ${KERNEL_PATH}/arch/arm/boot/dts/ -o dt.img
-	make -C ${EXTERNAL_MODULE_PATH}/wifi KDIR=${KERNEL_PATH}
 	make -C ${EXTERNAL_MODULE_PATH}/mali MALI_PLATFORM=${PLATFORM} BUILD=release KDIR=${KERNEL_PATH}
 
 	[ -d ${MODULE_PATH} ] && rm -rf ${MODULE_PATH}
